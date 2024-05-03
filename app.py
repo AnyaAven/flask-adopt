@@ -4,9 +4,10 @@ import os
 
 from flask import Flask, render_template, flash, redirect
 from flask_debugtoolbar import DebugToolbarExtension
+from sqlalchemy import desc
 
 from models import db, dbx, Pet
-from forms import AddPetForm
+from forms import AddPetForm, EditPetForm
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
@@ -25,20 +26,20 @@ toolbar = DebugToolbarExtension(app)
 
 
 @app.get("/")
-def home():
-    """ Display homepage with the list of pets """
+def show_pet_listings():
+    """ Display homepage with the list of pets, sorted by availability"""
 
-    q_pets = db.select(Pet).order_by(Pet.available) # TODO: Does this order correctly?
+    q_pets = db.select(Pet).order_by(desc(Pet.available))
     pets = dbx(q_pets).scalars().all()
 
     return render_template(
-        "pet_listings.jinja",
+        "pet/pet_listings.jinja",
         pets=pets
     )
 
 @app.route("/add", methods=["GET", "POST"])
-def add_pet_form():
-    """Pet add form"""
+def show_add_pet_form():
+    """Show add pet form"""
 
     form = AddPetForm()
 
@@ -65,7 +66,7 @@ def add_pet_form():
         return redirect("/")
 
     else:
-        return render_template("add_pet_form.jinja", form=form)
+        return render_template("pet/pet_form.jinja", form=form)
 
 @app.route("/<int:pet_id>", methods=["GET", "POST"])
 def display_or_edit_pet(pet_id):
@@ -75,20 +76,15 @@ def display_or_edit_pet(pet_id):
     form = EditPetForm(obj=pet)
 
     if form.validate_on_submit():
-        pet.name = form.name.data
-        pet.species = form.species.data
         pet.photo_url = form.photo_url.data
-        pet.age = form.age.data
         pet.notes = form.notes.data
+        pet.available = form.available.data
 
         db.session.commit()
 
-        flash(f"{pet.name} profile editted successfully!")
+        flash(f"{pet.name} profile edited successfully!")
 
         return redirect(f"/{pet_id}")
 
     else:
-        return render_template(
-            "pet_profile.jinja",
-            form=form,
-            pet=pet)
+        return render_template("pet/pet_profile.jinja", form=form, pet=pet)
