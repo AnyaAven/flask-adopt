@@ -7,6 +7,7 @@ from wtforms.validators import URL, InputRequired, Optional
 class AddPetForm(FlaskForm):
     """Form for adding new pets"""
 
+    #TODO: validate name length to match database constraint
     name = StringField("Pet Name", validators=[InputRequired()])
 
     species = SelectField(
@@ -35,7 +36,8 @@ class AddPetForm(FlaskForm):
                  ('senior', 'Senior')],
         validators=[InputRequired()]
     )
-
+    
+    #TODO: make notes optional
     notes = TextAreaField("Pet Notes")
 
 class EditPetForm(FlaskForm):
@@ -50,6 +52,7 @@ class EditPetForm(FlaskForm):
             Optional()
         ],
     )
-
+    
+    #TODO: make notes optional
     notes = TextAreaField("Pet Notes")
     available = BooleanField("Pet available for adoption")
