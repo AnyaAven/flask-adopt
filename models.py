@@ -1,4 +1,4 @@
-"""Models for adopt app."""
+""" Models for adopt app."""
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -8,7 +8,7 @@ dbx = db.session.execute
 class Pet(db.Model):
     """ Pet class """
 
-    __table__ = "pets"
+    __tablename__ = "pets"
 
     id = db.mapped_column(
         db.Integer,
@@ -23,6 +23,7 @@ class Pet(db.Model):
 
     species = db.mapped_column(
         db.String(100),
+        db.CheckConstraint("species IN" + "('dog', 'cat', 'porcupine')"),
         nullable=False
     )
 
