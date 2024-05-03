@@ -37,3 +37,19 @@ class AddPetForm(FlaskForm):
     )
 
     notes = TextAreaField("Pet Notes")
+
+class EditPetForm(FlaskForm):
+    """Form for editing pet details"""
+
+    photo_url = StringField(
+        "Pet Photo",
+        validators=[
+            URL(
+                require_tld=False,
+                message="Invalid Image URL!"),
+            Optional()
+        ],
+    )
+
+    notes = TextAreaField("Pet Notes")
+    available = BooleanField("Pet available for adoption")
