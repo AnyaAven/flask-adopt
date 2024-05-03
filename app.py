@@ -39,30 +39,56 @@ def home():
 @app.route("/add", methods=["GET", "POST"])
 def add_pet_form():
     """Pet add form"""
-    
+
     form = AddPetForm()
-    
+
     if form.validate_on_submit():
         name = form.name.data
         species = form.species.data
         photo_url = form.photo_url.data
         age = form.age.data
         notes = form.notes.data
-        
+
         pet = Pet(
-            name=name, 
-            species=species, 
-            photo_url=photo_url, 
-            age=age, 
+            name=name,
+            species=species,
+            photo_url=photo_url,
+            age=age,
             notes=notes
         )
-        
+
         db.session.add(pet)
         db.session.commit()
-        
+
         flash(f"Added {pet.name} successfully!")
-        
+
         return redirect("/")
-    
+
     else:
         return render_template("add_pet_form.jinja", form=form)
+
+@app.route("/<int:pet_id>", methods=["GET", "POST"])
+def display_or_edit_pet(pet_id):
+    """ Display the pet's profile OR edit the profile"""
+
+    pet = db.get_or_404(Pet, pet_id)
+    form = EditPetForm(obj=pet)
+
+    if form.validate_on_submit():
+        pet.name = form.name.data
+        pet.species = form.species.data
+        pet.photo_url = form.photo_url.data
+        pet.age = form.age.data
+        pet.notes = form.notes.data
+
+        db.session.commit()
+
+        flash(f"{pet.name} profile editted successfully!")
+
+        return redirect(f"/{pet_id}")
+
+    else:
+        return render_template(
+            "pet_profile.jinja",
+            form=form,
+            pet=pet)
