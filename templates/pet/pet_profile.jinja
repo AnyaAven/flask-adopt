@@ -9,7 +9,7 @@
 
         <div class="row">
             <div>
-                <img src="{{ pet.photo_url }}" alt="{{ pet.name }}'s picture" class="img-thumbnail">
+                <img src="{{ pet.photo_url }}" alt="{{ pet.name }}'s picture" class="img-thumbnail" width="600" height="600">
                 <h1 class="pt-4 mb-3 text-center">{{ pet.name }}</h1>
                 <h2>Pet's age: {{ pet.age }}</h2>
                 <h2>Pet's species: {{ pet.species }}</h2>
@@ -19,7 +19,7 @@
 
         <div class="row">
 
-            {% include 'add_pet_form.jinja' %}
+            {% include 'pet/pet_form.jinja' %}
 
         </div>
 
