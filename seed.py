@@ -39,9 +39,9 @@ gummy = Pet(
 )
 
 porky = Pet(
-    name="Gummy",
+    name="Porky",
     species="porcupine",
-    photo_url="https://images.pexels.com/photos/11961230/pexels-photo-11961230.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    photo_url="https://cincinnatizoo.org/wp-content/uploads/2023/12/53313821708_d6a5daf4ba_b.jpg",
     age="baby",
     notes="Very fluffy"
 )
