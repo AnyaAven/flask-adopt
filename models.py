@@ -5,14 +5,14 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 dbx = db.session.execute
 
-class Pet(db.model):
+class Pet(db.Model):
     """ Pet class """
 
     __table__ = "pets"
 
     id = db.mapped_column(
         db.Integer,
-        db.Indentity(),
+        db.Identity(),
         primary_key=True
     )
 
@@ -42,9 +42,9 @@ class Pet(db.model):
         db.Text,
         default='',
         nullable=False
-        )
+    )
 
-    available = db.mapped_colum(
+    available = db.mapped_column(
         db.Boolean,
         default=True,
         nullable=False
