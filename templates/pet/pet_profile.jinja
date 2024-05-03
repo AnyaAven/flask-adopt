@@ -1,0 +1,28 @@
+{% extends 'base.jinja' %}
+
+{% block title %} {{ pet.name }}'s profile {% endblock %}
+
+{% block content %}
+
+    <!-- Test comment for pet_profile -->
+    <div class="container">
+
+        <div class="row">
+            <div>
+                <img src="{{ pet.photo_url }}" alt="{{ pet.name }}'s picture" class="img-thumbnail">
+                <h1 class="pt-4 mb-3 text-center">{{ pet.name }}</h1>
+                <h2>Pet's age: {{ pet.age }}</h2>
+                <h2>Pet's species: {{ pet.species }}</h2>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            {% include 'add_pet_form.jinja' %}
+
+        </div>
+
+  </div>
+
+{% endblock %}

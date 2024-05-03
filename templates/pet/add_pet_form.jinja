@@ -1,7 +1,7 @@
 {% extends 'base.jinja' %}
 {% block content %}
     <!--Test comment for add pet form-->
-    
+
     <form id="add-pet-form" method="POST">
         {{ form.hidden_tag() }} <!--add type=hidden form fields -->
 
@@ -18,8 +18,8 @@
             </p>
 
         {% endfor %}
-        
-        <button type="submit">Submit</button>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
     </form>
-    
+
 {% endblock %}
