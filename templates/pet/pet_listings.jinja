@@ -8,7 +8,10 @@
       {% for pet in pets %}
         <img src="{{ pet.photo_url }}" alt="NO IMG" class="img-thumbnail" width="200" height="200">
         <li><a href="/{{ pet.id }}">{{ pet.name }} {% if pet.available %} <b>is available!</b> {% endif %}</a></li>
+        {% else %} {# This adds a h1 tag if there are no pets #}
+        <h1> No pets! </h1>
       {% endfor %}
+
     </ul>
 
 
