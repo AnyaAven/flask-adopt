@@ -28,7 +28,7 @@ class Pet(db.Model):
     )
 
     photo_url = db.mapped_column(
-        db.String(2048),
+        db.String(2048),  #NOTE: could be db.Text
         default='',
         nullable=False
     )
